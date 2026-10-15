@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Campus Customs: Resolved Board</title>
+<style>
+  :root { --yale:#00356b; --ink:#101828; --ink2:#344054; --muted:#667085; --faint:#98a2b3; --line:#eaecf0; --bg:#f7f8fa;
+          --blue:#286dc0; --amber:#b26a00; --green:#217a50; --violet:#6a55a3; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; color:var(--ink); background:var(--bg); line-height:1.55; }
+  .top { background:#fff; border-bottom:1px solid var(--line); }
+  .top-inner { max-width:1100px; margin:0 auto; padding:18px 32px; display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; }
+  .brand { display:flex; gap:12px; align-items:center; }
+  .mark { width:38px; height:38px; border-radius:9px; background:var(--yale); color:#fff; display:grid; place-items:center; font-family:Georgia,serif; font-weight:700; }
+  .brand-name { font-family:Georgia,serif; font-size:19px; font-weight:700; color:var(--yale); }
+  .brand-sub { font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
+  .stats { display:flex; gap:28px; }
+  .stat { text-align:right; }
+  .stat .eyebrow { margin:0; }
+  .stat b { display:block; font-size:22px; font-variant-numeric:tabular-nums; }
+  main { max-width:1100px; margin:0 auto; padding:28px 32px 48px; display:grid; gap:22px; }
+  .intro { color:var(--muted); margin:0; }
+  .ticket { background:#fff; border:1px solid var(--line); border-radius:16px; padding:26px 30px; box-shadow:0 1px 3px rgba(16,24,40,.05); }
+  .kind { font-size:13px; color:var(--muted); }
+  .faint { color:var(--faint); }
+  .title-row { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:6px; flex-wrap:wrap; }
+  h2 { margin:0; font-size:24px; letter-spacing:-.02em; }
+  .request { margin:6px 0 0; color:var(--ink2); }
+  .status { display:inline-flex; align-items:center; gap:7px; font-size:13px; font-weight:600; padding:5px 12px; border:1px solid var(--line); border-radius:999px; }
+  .status i { width:7px; height:7px; border-radius:50%; background:var(--faint); }
+  .status.done { color:var(--green); } .status.done i { background:var(--green); }
+  .status.attention { color:var(--amber); } .status.attention i { background:var(--amber); }
+  .status.waiting i { background:var(--violet); } .status.new i { background:var(--blue); }
+  .eyebrow { font-size:11.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:18px 0 8px; }
+  .callout { margin-top:20px; padding:14px 18px; border:1px solid var(--line); border-left:3px solid var(--blue); border-radius:10px; }
+  .callout .eyebrow { margin-top:0; }
+  .callout p { margin:0; }
+  .callout.done { border-left-color:var(--green); background:#f2faf5; }
+  .callout.attention { border-left-color:var(--amber); background:#fffaf0; }
+  .cols { display:grid; grid-template-columns:1fr 1.6fr; gap:28px; }
+  ul.plain { margin:0; padding-left:18px; } ul.plain li { margin-bottom:6px; }
+  .small { font-size:13.5px; color:var(--ink2); margin:0; }
+  details.agent { border:1px solid var(--line); border-radius:10px; margin-bottom:8px; }
+  details.agent summary { list-style:none; cursor:pointer; display:flex; align-items:center; gap:10px; padding:9px 12px; }
+  details.agent summary::-webkit-details-marker { display:none; }
+  .avatar { width:26px; height:26px; border-radius:50%; color:#fff; display:grid; place-items:center; font-size:10px; font-weight:700; }
+  .agent-name { font-weight:600; font-size:14px; flex:1; }
+  .agent-count { font-size:12.5px; color:var(--faint); }
+  .agent-body { padding:0 14px 12px; font-size:14px; color:var(--ink2); border-top:1px solid #f2f4f7; }
+  .agent-body p { margin:0 0 8px; } .agent-body ul { margin:0 0 8px; padding-left:20px; }
+  ul.actions code { font-size:12px; overflow-wrap:anywhere; }
+  code { background:#f2f4f7; padding:1px 5px; border-radius:4px; font-size:.88em; }
+  .draft { border:1px solid var(--line); border-radius:10px; margin-bottom:10px; overflow:hidden; }
+  .draft-to { font-size:13px; font-weight:600; padding:8px 14px; background:#fafbfc; border-bottom:1px solid #f2f4f7; }
+  .draft-text { white-space:pre-wrap; padding:12px 16px; font-family:Georgia,serif; font-size:15px; line-height:1.6; }
+  @media (max-width:800px) { .cols { grid-template-columns:1fr; gap:0; } .ticket { padding:20px; } main, .top-inner { padding-left:18px; padding-right:18px; } }
+</style>
+</head>
+<body>
+  <div class="top"><div class="top-inner">
+    <div class="brand"><span class="mark">CC</span><div><div class="brand-name">Campus Customs</div><div class="brand-sub">Resolved board · shop date 2026-08-31</div></div></div>
+    <div class="stats">
+      <div class="stat"><div class="eyebrow">Resolved</div><b>1 of 3</b></div>
+      <div class="stat"><div class="eyebrow">Checking</div><b>$160.00</b></div>
+    </div>
+  </div></div>
+  <main>
+    <p class="intro">Final state of the board after the full run with the real agents (gpt-6-luna) on fresh data. Payments were approved by a person on the dashboard. Click an agent to see its final report and actions. Only the latest draft per recipient is shown; every draft is in <code>resolved_tickets.json</code>.</p>
+    
+    <article class="ticket">
+      <header>
+        <div class="kind">Customer order <span class="faint">#101</span> · Tauhid Zaman</div>
+        <div class="title-row"><h2>Bulldog tee</h2><span class="status attention"><i></i>Needs your decision</span></div>
+        <p class="request">Needs a tee in size S.</p>
+      </header>
+      <section class="callout attention"><div class="eyebrow">Outcome</div><p>Invoice 501 ($840.00) paid after human approval, which unblocked Bulldog Print Co. A 1-unit reprint order (arrives 2026-09-05, est. $8.00) and a corrected customer reply are drafted. Waiting on a person to submit the vendor order, since agents can only draft purchases.</p></section>
+      <div class="cols">
+        <section><div class="eyebrow">Human approvals</div><ul class="plain"><li><strong>$840.00</strong> invoice 501 to Bulldog Print Co (Rush reprint CC-TEE-WHITE S), due 2026-08-28: approved by Quinn, paid (payment 1), checking $2,560.00 after</li></ul>
+          <div class="eyebrow">Runs</div><p class="small">2 run(s): finished, finished</p></section>
+        <section><div class="eyebrow">What each agent did</div>
+        <details class="agent">
+          <summary><span class="avatar" style="background:#00356B">B</span><span class="agent-name">Boss</span><span class="agent-count">2 actions</span></summary>
+          <div class="agent-body">
+            <div class="eyebrow">Final report</div><p><strong>Ticket 101 — waiting_on_human</strong></p><ul><li>Accounting confirmed invoice 501 ($840.00) was paid on 2026-08-31, approved by Quinn. Current cash reported: <strong>$160.00</strong>.</li><li>Inventory confirmed size S is out of stock (0 on hand) and saved an <strong>unsubmitted</strong> draft order for 1 unit at an estimated cost of $8.00, with estimated arrival 2026-09-05. No cost was incurred.</li><li>Customer service saved an updated unsent reply draft. A person must submit/authorize the vendor order before delivery can be confirmed.</li><li>The earlier draft saying payment was awaiting approval could not be removed; the updated draft corrects it.</li></ul><p>No other ticket was changed.</p>
+            <div class="eyebrow">Actions taken</div><ul class="actions"><li><code>update_ticket(ticket_id=101, status=&#x27;waiting_on_human&#x27;, note=&#x27;Stock check found CC-TEE-WHITE size S at 0 (qty 1 requested). Bulldog Print Co. is blocked from shipping by overdue invoice 501 ($840.00, due 2026-08-28); no arrival date or restock order is available while blocked. Accounting prepared payment, status pending_human_approval, approval_id 51809c49; nothing has been paid. Human must approve this payment before inventory can plan the restock. Customer service saved a reply draft stating out of stock, payment awaiting approval, and no confirmed ETA; draft not sent.&#x27;)</code></li><li><code>update_ticket(ticket_id=101, status=&#x27;waiting_on_human&#x27;, note=&#x27;2026-08-31: Accounting confirms invoice 501 ($840.00, due 2026-08-28) was paid on 2026-08-31, approved by Quinn; current cash reported as $160.00. Inventory confirms CC-TEE-WHITE size S is 0 on hand and Bulldog Print Co. can ship. Inventory saved a draft order for 1 unit, estimated cost $8.00 and estimated arrival 2026-09-05; draft was not submitted and no cost incurred. Customer service saved an updated unsent draft explaining the stockout and that delivery is unconfirmed pending submission/authorization. Waiting on a human to submit/authorize the vendor order before delivery can be confirmed.&#x27;)</code></li></ul>
+          </div>
+        </details>
+        <details class="agent">
+          <summary><span class="avatar" style="background:#2F6F5E">Ac</span><span class="agent-name">Accounting</span><span class="agent-count">3 actions</span></summary>
+          <div class="agent-body">
+            <div class="eyebrow">Final report</div><ul><li><strong>Cash on hand:</strong> $160.00 in checking as of 2026-08-31.</li><li><strong>Invoice 501:</strong> Ticket 101 records a due date of 2026-08-28, which was overdue as of the shop date. It is not listed among unpaid invoices.</li><li><strong>Payment status:</strong> Ticket notes mention approval ID <code>51809c49</code> with status <code>pending_human_approval</code>. However, the current payment ledger shows invoice 501 was <strong>paid</strong> for $840.00 on 2026-08-31, approved by Quinn. The ledger does not show an approval ID.</li><li><strong>Action:</strong> No payment action is needed; I did not initiate a duplicate payment.</li><li><strong>Cash priority:</strong> The open rent obligation is $2,400.00 due 2026-10-02. The current $160.00 balance cannot cover it.</li></ul>
+            <div class="eyebrow">Actions taken</div><ul class="actions"><li><code>list_payments()</code></li><li><code>list_bills_due()</code></li><li><code>pay_invoice(invoice_id=501)</code></li></ul>
+          </div>
+        </details>
+        <details class="agent">
+          <summary><span class="avatar" style="background:#286DC0">In</span><span class="agent-name">Inventory</span><span class="agent-count">4 actions</span></summary>
+          <div class="agent-body">
+            <div class="eyebrow">Final report</div><p>Saved a vendor order draft on ticket 101 for Bulldog Print Co.: 1 × CC-TEE-WHITE, size S, expected arrival 2026-09-05. The draft was not sent or submitted, and no cost was incurred.</p><p>Stock is 0 in Aisle B, so it does not cover the 1-unit request; the shortfall is 1. Bulldog Print Co. can ship; estimated cost is $8.00, with a 5-day lead time. No human approval is needed for this draft; someone would need to submit the order separately.</p>
+            <div class="eyebrow">Actions taken</div><ul class="actions"><li><code>check_stock(sku=&#x27;CC-TEE-WHITE&#x27;, size=&#x27;S&#x27;)</code></li><li><code>list_vendors()</code></li><li><code>get_restock_eta(sku=&#x27;CC-TEE-WHITE&#x27;, size=&#x27;S&#x27;, qty=1, vendor_id=1)</code></li><li><code>save_draft(ticket_id=101, recipient=&#x27;Bulldog Print Co&#x27;)</code></li></ul>
+          </div>
+        </details>
+        <details class="agent">
+          <summary><span class="avatar" style="background:#6B4C8A">CS</span><span class="agent-name">Customer Service</span><span class="agent-count">2 actions</span></summary>
+          <div class="agent-body">
+            <div class="eyebrow">Final report</div><p>Checked ticket 101 and confirmed CC-TEE-WHITE size S is out of stock (0 on hand). Saved an updated draft to Tauhid Zaman stating invoice 501 was paid and approved by Quinn, and that delivery is not confirmed because the vendor order has not been submitted. The draft was not sent.</p><p>The available tools don’t support editing or removing the earlier draft. The new draft corrects its outdated “awaiting approval” statement; the earlier draft remains in the ticket notes.</p>
+            <div class="eyebrow">Actions taken</div><ul class="actions"><li><code>check_stock(sku=&#x27;CC-TEE-WHITE&#x27;, size=&#x27;S&#x27;)</code></li><li><code>save_draft(ticket_id=101, recipient=&#x27;Tauhid Zaman&#x27;)</code></li></ul>
+          </div>
+        </details></section>
+      </div>
+      <section><div class="eyebrow">Drafted messages</div><div class="draft"><div class="draft-to">To Tauhid Zaman · latest draft, not sent</div><div class="draft-text">Hi Tauhid,
+
+A correction to my earlier update: invoice 501 has been paid and approved by Quinn. The CC-TEE-WHITE in size S is still out of stock. The supplier can ship, but the vendor order has not been submitted, so we don&#x27;t have a confirmed delivery date yet. We&#x27;ll follow up once the order and delivery timing are confirmed.
+
+Best,
+Campus Customs</div></div><div class="draft"><div class="draft-to">To Bulldog Print Co · latest draft, not sent</div><div class="draft-text">Vendor order draft only — not submitted.
+SKU: CC-TEE-WHITE
+Size: S
+Quantity: 1
+Expected arrival: 2026-09-05</div></div></section>
+    </article>
+    <article class="ticket">
+      <header>
+        <div class="kind">Rent notice <span class="faint">#102</span> · Elm City Properties</div>
+        <div class="title-row"><h2>Rent due</h2><span class="status done"><i></i>Resolved</span></div>
+        <p class="request">Email: shop rent due in 2 days.</p>
+      </header>
+      <section class="callout done"><div class="eyebrow">Outcome</div><p>Rent notice verified against lease 1 ($2,400.00 due 2026-09-02), rent paid after human approval (lease now due 2026-10-02), and a landlord reply confirming payment is drafted. Resolved.</p></section>
+      <div class="cols">
+        <section><div class="eyebrow">Human approvals</div><ul class="plain"><li><strong>$2,400.00</strong> rent for Chapel Street shop to Elm City Properties, due 2026-09-02: approved by Quinn, paid (payment 2), checking $160.00 after</li></ul>
+          <div class="eyebrow">Runs</div><p class="small">2 run(s): finished, finished</p></section>
+        <section><div class="eyebrow">What each agent did</div>
+        <details class="agent">
+          <summary><span class="avatar" style="background:#00356B">B</span><span class="agent-name">Boss</span><span class="agent-count">2 actions</span></summary>
+          <div class="agent-body">
+            <div class="eyebrow">Final report</div><p>Ticket <strong>102</strong> is <strong>resolved</strong>. Facilities verified lease 1 rent is <strong>$2,400.00</strong>, with the next payment due <strong>2026-10-02</strong>, and saved an updated landlord reply draft confirming payment. The draft was not sent.</p><p>Accounting’s current ledger reports rent was paid on <strong>2026-08-31</strong> (payment ID 2), approved by <strong>Quinn</strong>. It also reports invoice 501 was paid ($840.00, payment ID 1), approved by Quinn. Current checking cash is <strong>$160.00</strong>. These ledger details conflict with older ticket notes; I recorded that discrepancy. No other ticket status was changed.</p>
+            <div class="eyebrow">Actions taken</div><ul class="actions"><li><code>update_ticket(ticket_id=102, status=&#x27;waiting_on_human&#x27;, note=&#x27;2026-08-31: Facilities verified lease 1 rent is $2,400.00 due 2026-09-02 and saved an unsent reply draft confirming the lease details; no claim that rent is paid. Accounting prepared rent payment, status pending_human_approval, approval_id 8976f0dc; payment has not been made. Human approval is required before this ticket can be resolved. Accounting reports checking balance $3,400.00 unchanged pending approval; invoice 501 ($840.00) remains unpaid and overdue.&#x27;)</code></li><li><code>update_ticket(ticket_id=102, status=&#x27;resolved&#x27;, note=&#x27;2026-08-31: Accounting checked the current payment ledger: lease 1 rent of $2,400.00 was paid on 2026-08-31 (payment ID 2), approved by Quinn; current checking cash is $160.00. Accounting also reports invoice 501 paid (payment ID 1, $840.00, approved by Quinn); no unpaid invoices or overdue items are listed. Facilities verified lease 1 rent is $2,400.00, with next due date 2026-10-02. Facilities saved an updated unsent draft confirming the reported rent payment and next due date; not sent. Older ticket notes showing rent due 2026-09-02 and approval_id 8976f0dc pending are inconsistent with the current accounting ledger and lease verification.&#x27;)</code></li></ul>
+          </div>
+        </details>
+        <details class="agent">
+          <summary><span class="avatar" style="background:#2F6F5E">Ac</span><span class="agent-name">Accounting</span><span class="agent-count">3 actions</span></summary>
+          <div class="agent-body">
+            <div class="eyebrow">Final report</div><ul><li><strong>Shop date:</strong> 2026-08-31. <strong>Checking cash:</strong> $160.00.</li><li><strong>Lease 1:</strong> Elm City Properties; rent is <strong>$2,400.00</strong>, due <strong>2026-10-02</strong>. It is not due or overdue; 32 days remain. No unpaid invoices or overdue items are listed.</li><li><strong>Payment status:</strong> The current payment ledger shows rent for lease 1 <strong>paid</strong> on 2026-08-31: payment ID 2, $2,400.00, approved by Quinn. It also shows invoice 501 paid (payment ID 1, $840.00, approved by Quinn). This differs from the ticket notes listing approval IDs as pending; those notes do not reflect the current ledger. I did not create or process a payment.</li><li><strong>Shared cash:</strong> The ledger records both payments, leaving $160.00. No payment was made for ticket 101 in this check.</li></ul>
+            <div class="eyebrow">Actions taken</div><ul class="actions"><li><code>list_bills_due()</code></li><li><code>list_payments()</code></li><li><code>pay_rent(lease_id=1, account=&#x27;checking&#x27;)</code></li></ul>
+          </div>
+        </details>
+        <details class="agent">
+          <summary><span class="avatar" style="background:#7A5C3E">Fa</span><span class="agent-name">Facilities</span><span class="agent-count">3 actions</span></summary>
+          <div class="agent-body">
+            <div class="eyebrow">Final report</div><p>Saved the updated draft on ticket 102, confirming the reported $2,400.00 payment on 2026-08-31 (payment ID 2) and the lease-verified next due date of 2026-10-02. It was not sent, and no payment was made.</p>
+            <div class="eyebrow">Actions taken</div><ul class="actions"><li><code>get_lease(lease_id=1)</code></li><li><code>list_bills_due()</code></li><li><code>save_draft(ticket_id=102, recipient=&#x27;Elm City Properties&#x27;)</code></li></ul>
+          </div>
+        </details></section>
+      </div>
+      <section><div class="eyebrow">Drafted messages</div><div class="draft"><div class="draft-to">To Elm City Properties · latest draft, not sent</div><div class="draft-text">Hello Elm City Properties,
+
+Our records confirm the $2,400.00 rent payment was paid on 2026-08-31 (payment ID 2). The next rent is due on 2026-10-02.
+
+Regards,
+Campus Customs</div></div></section>
+    </article>
+    <article class="ticket">
+      <header>
+        <div class="kind">Discount request <span class="faint">#103</span> · Yale AI Club</div>
+        <div class="title-row"><h2>Bulk hoodie discount</h2><span class="status attention"><i></i>Needs your decision</span></div>
+        <p class="request">Student org wants 20 hoodies, size M, asking for a bulk discount.</p>
+      </header>
+      <section class="callout attention"><div class="eyebrow">Outcome</div><p>Only 8 of 20 size M hoodies in stock. A 12-unit restock (est. $264.00) was blocked by unpaid invoice 501 when the ticket ran (it has since been paid, but $160.00 left in checking wouldn&#x27;t cover it). The shop data has no discount policy, so the agents quoted list price ($1,160.00 for 20) and left the discount to a person. An &#x27;under review&#x27; reply is drafted.</p></section>
+      <div class="cols">
+        <section><div class="eyebrow">Human approvals</div><ul class="plain"><li>None needed.</li></ul>
+          <div class="eyebrow">Runs</div><p class="small">1 run(s): finished</p></section>
+        <section><div class="eyebrow">What each agent did</div>
+        <details class="agent">
+          <summary><span class="avatar" style="background:#00356B">B</span><span class="agent-name">Boss</span><span class="agent-count">1 actions</span></summary>
+          <div class="agent-body">
+            <div class="eyebrow">Final report</div><p>Ticket <strong>103 — waiting_on_human</strong></p><ul><li>Checked stock: <strong>8</strong> of <strong>20</strong> CC-HOOD-NAVY, size M, are on hand.</li><li>Accounting reported list price <strong>$58.00 each</strong> (<strong>$1,160.00</strong> total at 0% discount). Shop data has no discount policy; a human must decide whether/how much to discount.</li><li>Bulldog Print Co. cannot ship while invoice <strong>501</strong> (<strong>$840.00</strong>, due <strong>2026-08-28</strong>) remains open. A 12-unit restock estimate is <strong>$264.00</strong> with a 5-day lead time, but there is no confirmed arrival date. No order was created.</li><li>Customer service saved an unsent draft. No payment was made.</li><li>Accounting reported checking balance: <strong>$3,400.00</strong>. No payment approval or approver reported.</li></ul><p>No other ticket was changed.</p>
+            <div class="eyebrow">Actions taken</div><ul class="actions"><li><code>update_ticket(ticket_id=103, status=&#x27;waiting_on_human&#x27;, note=&#x27;2026-08-31: Inventory confirmed 8 units of CC-HOOD-NAVY, size M, on hand; 12 short of the requested 20. Bulldog Print Co. cannot ship while invoice 501 ($840.00, due 2026-08-28) remains open. A 12-unit restock estimate is $264.00 with a 5-day lead time, but there is no arrival date while shipping is blocked; no order was created. Accounting reports list price $58.00 each ($1,160.00 total at 0% discount) and no shop-data discount policy or requested percentage; human must decide whether/how much discount to authorize and whether/when to pay invoice 501 before restock can proceed. Customer service saved an unsent draft noting the shortage and list-price total without promising a discount or delivery. No payment or order made.&#x27;)</code></li></ul>
+          </div>
+        </details>
+        <details class="agent">
+          <summary><span class="avatar" style="background:#2F6F5E">Ac</span><span class="agent-name">Accounting</span><span class="agent-count">3 actions</span></summary>
+          <div class="agent-body">
+            <div class="eyebrow">Final report</div><p><strong>Ticket 103 — Yale AI Club</strong></p><ul><li>Checked the 20-unit quote for SKU <code>CC-HOOD-NAVY</code> at the <strong>0% discount</strong> baseline: list price <strong>$58.00</strong> per hoodie; total <strong>$1,160.00</strong>; margin <strong>$36.00</strong> per hoodie (<strong>62.1%</strong>). This is above cost.</li><li>The shop data provides no allowable-discount policy or requested discount percentage. A human must decide whether to authorize a discount; no discount was approved.</li></ul><p><strong>Cash and board-wide obligations</strong> (shop date: <strong>2026-08-31</strong>; current checking balance: <strong>$3,400.00</strong>):</p><ul><li><strong>Overdue:</strong> Invoice <strong>501</strong>, Bulldog Print Co — <strong>$840.00</strong>, due <strong>2026-08-28</strong>. Running balance if paid: <strong>$2,560.00</strong>.</li><li><strong>Upcoming:</strong> Rent, lease <strong>1</strong>, Elm City Properties — <strong>$2,400.00</strong>, due <strong>2026-09-02</strong>. Running balance after both obligations: <strong>$160.00</strong>.</li></ul><p>The payment ledger shows no payments or pending payment approvals. No payment was made or prepared.</p>
+            <div class="eyebrow">Actions taken</div><ul class="actions"><li><code>list_payments()</code></li><li><code>list_bills_due()</code></li><li><code>quote_bulk_price(sku=&#x27;CC-HOOD-NAVY&#x27;, qty=20, discount_pct=0)</code></li></ul>
+          </div>
+        </details>
+        <details class="agent">
+          <summary><span class="avatar" style="background:#286DC0">In</span><span class="agent-name">Inventory</span><span class="agent-count">3 actions</span></summary>
+          <div class="agent-body">
+            <div class="eyebrow">Final report</div><p>Ticket 103 — CC-HOOD-NAVY, size M</p><ul><li>On hand: <strong>8 units</strong> in <strong>Aisle A</strong>; this is <strong>12 short</strong> of the requested 20.</li><li>The matching apparel vendor is <strong>Bulldog Print Co</strong> (specialty: apparel reprint), but it <strong>cannot ship</strong> while invoice <strong>501</strong> for <strong>$840.00</strong>, due <strong>2026-08-28</strong>, remains open.</li><li>A 12-unit restock estimate is <strong>$264.00</strong>. The vendor’s lead time is <strong>5 days</strong>, but no arrival date is available while shipping is blocked.</li></ul><p>No order was created. Restock depends on the invoice being paid by accounting.</p>
+            <div class="eyebrow">Actions taken</div><ul class="actions"><li><code>check_stock(sku=&#x27;CC-HOOD-NAVY&#x27;, size=&#x27;M&#x27;)</code></li><li><code>list_vendors()</code></li><li><code>get_restock_eta(sku=&#x27;CC-HOOD-NAVY&#x27;, size=&#x27;M&#x27;, qty=12, vendor_id=1)</code></li></ul>
+          </div>
+        </details>
+        <details class="agent">
+          <summary><span class="avatar" style="background:#6B4C8A">CS</span><span class="agent-name">Customer Service</span><span class="agent-count">3 actions</span></summary>
+          <div class="agent-body">
+            <div class="eyebrow">Final report</div><p>Draft saved to Ticket 103 for Yale AI Club; it was not sent. It notes 8 size M hoodies on hand, a shortage of 12, and the $1,160.00 list-price total for 20, without promising a discount or restock timing.</p>
+            <div class="eyebrow">Actions taken</div><ul class="actions"><li><code>check_stock(sku=&#x27;CC-HOOD-NAVY&#x27;, size=&#x27;M&#x27;)</code></li><li><code>quote_bulk_price(sku=&#x27;CC-HOOD-NAVY&#x27;, qty=20, discount_pct=0)</code></li><li><code>save_draft(ticket_id=103, recipient=&#x27;Yale AI Club&#x27;)</code></li></ul>
+          </div>
+        </details></section>
+      </div>
+      <section><div class="eyebrow">Drafted messages</div><div class="draft"><div class="draft-to">To Yale AI Club · latest draft, not sent</div><div class="draft-text">Hi Yale AI Club,
+
+We currently have 8 size M hoodies in stock, so we are 12 short of the 20 requested. The list price is $58.00 each ($1,160.00 total for 20 before any discount). I can’t confirm a discount or restock timing yet. We’ll follow up once the discount decision and availability are confirmed.
+
+Best,
+Campus Customs</div></div></section>
+    </article>
+  </main>
+</body>
+</html>

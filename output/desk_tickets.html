@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Campus Customs Desk Tickets</title>
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --card: #ffffff;
+    --text: #1f2933;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --accent: #0f4d92;
+    --accent-soft: #e8f0fa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+  main { max-width: 960px; margin: 0 auto; padding: 40px 24px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .subtitle { color: var(--muted); margin: 0 0 28px; }
+  .tabs { display: flex; gap: 8px; border-bottom: 1px solid var(--border); }
+  .tab {
+    appearance: none;
+    border: 1px solid transparent;
+    border-bottom: none;
+    background: none;
+    padding: 10px 18px;
+    font: inherit;
+    color: var(--muted);
+    cursor: pointer;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: -1px;
+  }
+  .tab:hover { color: var(--text); }
+  .tab[aria-selected="true"] {
+    background: var(--card);
+    border-color: var(--border);
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    padding: 28px;
+  }
+  .panel[hidden] { display: none; }
+  .panel h2 { font-size: 1.2rem; margin: 0 0 20px; }
+  .sections { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  section {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    min-height: 180px;
+  }
+  section h3 {
+    margin: 0 0 12px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+  }
+  section.expected { background: var(--accent-soft); border-color: #cfdff2; }
+  section p { margin: 0; }
+  code { font-size: 0.85em; background: #ffffffaa; padding: 1px 4px; border-radius: 4px; }
+  .placeholder { color: var(--muted); font-style: italic; margin: 0; }
+  @media (max-width: 700px) { .sections { grid-template-columns: 1fr; } }
+  .final { margin: 0 0 12px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .chip { display: inline-block; font-size: 0.75rem; font-weight: 600; padding: 2px 9px; border-radius: 999px; background: #eef0f3; color: #344054; }
+  .chip.ok { background: #e8f5ee; color: #1f7a4d; }
+  .chip.attention { background: #fff4e0; color: #9a5b00; }
+  section.actual p + p, section.expected p + p { margin-top: 10px; }
+  .lede { color: var(--muted); margin: -8px 0 20px; }
+  table.ledger { width: 100%; border-collapse: collapse; font-size: 0.92rem; margin-bottom: 10px; }
+  table.ledger th { text-align: left; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); border-bottom: 1px solid var(--border); padding: 8px 10px; }
+  table.ledger td { padding: 10px; border-bottom: 1px solid #f0f1f3; vertical-align: top; }
+  table.ledger .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  table.ledger .out { color: #b42318; }
+  table.ledger tr.opening td, table.ledger tr.closing td { font-weight: 600; background: #fafbfc; }
+  table.ledger tr.closing td { border-top: 2px solid var(--border); }
+  .muted-table td { color: #475467; }
+  h3.sub { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); margin: 28px 0 10px; }
+  .note { font-size: 0.88rem; color: var(--muted); margin: 6px 0 0; }
+  .note.warn { color: #9a5b00; background: #fff8ec; border: 1px solid #f3dcb4; padding: 10px 14px; border-radius: 8px; margin-top: 12px; }
+  article.q { padding: 18px 0; border-top: 1px solid var(--border); }
+  article.q:first-of-type { border-top: none; padding-top: 4px; }
+  article.q h3 { font-size: 1rem; margin: 0 0 10px; color: var(--accent); }
+  article.q p { margin: 0 0 10px; }
+  @media (max-width: 700px) { table.ledger { font-size: 0.82rem; } }
+
+</style>
+</head>
+<body>
+<main>
+  <h1>Campus Customs Desk Tickets</h1>
+  <p class="subtitle">Expected vs. actual outcome for each ticket, cash flows, and reflections. Full run with the real agents (<code>gpt-6-luna</code>) on fresh data, shop date 2026-08-31.</p>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tab-101" aria-controls="panel-101" aria-selected="true">#101 Bulldog tee</button>
+    <button class="tab" role="tab" id="tab-102" aria-controls="panel-102" aria-selected="false">#102 Rent due</button>
+    <button class="tab" role="tab" id="tab-103" aria-controls="panel-103" aria-selected="false">#103 Bulk hoodie discount</button>
+    <button class="tab" role="tab" id="tab-cash" aria-controls="panel-cash" aria-selected="false">Cash</button>
+    <button class="tab" role="tab" id="tab-reflections" aria-controls="panel-reflections" aria-selected="false">Reflections</button>
+  </div>
+
+  <div class="panel" role="tabpanel" id="panel-101" aria-labelledby="tab-101">
+    <h2>Ticket #101: Bulldog tee</h2>
+    <div class="sections">
+      <section class="expected">
+        <h3>Expected</h3>
+        <p>The boss reads the board with <code>list_open_tickets</code> and calls <strong>inventory</strong> first. Inventory uses <code>check_stock</code> to find size-S tees at 0, then <code>list_vendors</code> and <code>get_restock_eta</code>, which show Bulldog Print Co can't ship because invoice 501 is unpaid. The boss then calls <strong>accounting</strong>, which confirms with <code>list_bills_due</code> that the $840 invoice is overdue and cash covers it. Accounting pays it with <code>pay_invoice</code> once a human approves. The boss goes back to <strong>inventory</strong>: <code>get_restock_eta</code> now gives an arrival date 5 days out, and it saves a draft vendor order with <code>save_draft</code>. <strong>Customer service</strong> then uses <code>check_stock</code> and <code>save_draft</code> to draft a reply to Tauhid Zaman with that date. Finally, the boss marks the ticket <code>waiting_on_vendor</code> with <code>update_ticket</code>.</p>
+      </section>
+      <section class="actual">
+        <h3>Actual</h3>
+        <p class="final"><span class="chip attention">Final status: waiting_on_human</span> <span class="chip">2 runs</span> <span class="chip ok">1 approval: $840.00 by Quinn</span></p>
+        <p><strong>Run 1:</strong> The boss checked the whole board first and called <strong>accounting</strong> and <strong>inventory</strong> at the same time. Accounting (<code>list_bills_due</code>, <code>list_payments</code>) reported $3,400.00 in checking, invoice 501 three days overdue, and rent due in 2 days. Inventory (<code>check_stock</code>, <code>list_vendors</code>, <code>get_restock_eta</code>) found 0 size-S tees and reported Bulldog Print Co as the right vendor but blocked by invoice 501, so it gave no arrival date. The boss then had accounting call <code>pay_invoice</code>, which queued an $840.00 payment for human approval and paid nothing. <strong>Customer service</strong> drafted an honest reply to Tauhid Zaman (out of stock, no date yet), and the boss set <code>waiting_on_human</code>.</p>
+        <p><strong>Approval and run 2:</strong> Quinn approved the payment on the dashboard, and checking dropped to $2,560.00. When the team picked the ticket back up, accounting confirmed the payment in the ledger, and inventory's <code>get_restock_eta</code> now showed the vendor could ship: 1 tee by 2026-09-05 for about $8.00. Inventory saved a draft vendor order, and customer service saved a corrected reply. The ticket ended <code>waiting_on_human</code> rather than the expected <code>waiting_on_vendor</code>, because the agents can only draft orders and a person still has to place it. Customer service also couldn't delete its earlier "awaiting approval" draft, so the ticket holds both versions.</p>
+      </section>
+    </div>
+  </div>
+
+  <div class="panel" role="tabpanel" id="panel-102" aria-labelledby="tab-102" hidden>
+    <h2>Ticket #102: Rent due</h2>
+    <div class="sections">
+      <section class="expected">
+        <h3>Expected</h3>
+        <p>The boss calls <strong>facilities</strong> first. Facilities uses <code>get_ticket</code> and <code>get_lease</code> to check the notice against lease 1 ($2,400 due 2026-09-02, so not overdue), and <code>list_bills_due</code> to confirm cash covers it. The boss then calls <strong>accounting</strong>, which checks <code>list_bills_due</code> and pays with <code>pay_rent</code> after human approval. That leaves about $160 if invoice 501 was also paid. The boss calls <strong>facilities</strong> again to draft a reply to Elm City Properties with <code>save_draft</code>, confirming the payment. Then the boss marks the ticket <code>resolved</code> with <code>update_ticket</code>.</p>
+      </section>
+      <section class="actual">
+        <h3>Actual</h3>
+        <p class="final"><span class="chip ok">Final status: resolved</span> <span class="chip">2 runs</span> <span class="chip ok">1 approval: $2,400.00 by Quinn</span></p>
+        <p><strong>Run 1:</strong> The boss called <strong>accounting</strong> first for the cash picture. It reported $3,400.00, with $160.00 left if both invoice 501 and rent were paid. Next, <strong>facilities</strong> used <code>get_lease</code> and <code>list_bills_due</code> to confirm the notice matched lease 1 ($2,400.00 due 2026-09-02, not overdue), and saved a landlord draft that carefully did not claim the rent was paid. Accounting then called <code>pay_rent</code>, which queued the payment for approval, and the boss set <code>waiting_on_human</code>.</p>
+        <p><strong>Approval and run 2:</strong> Quinn approved the rent, and checking dropped to $160.00. On the next run, accounting found payment 2 in the ledger. Facilities stumbled at first: it read the lease's new due date (2026-10-02, moved forward by the payment) as a mismatch with the notice. It also wouldn't confirm payment in its draft, because it has no ledger tool. The boss relayed accounting's verified facts, and facilities then saved a draft confirming payment 2 and the next due date. The boss marked the ticket <code>resolved</code>. The ticket now holds three landlord drafts, because drafts can't be replaced.</p>
+      </section>
+    </div>
+  </div>
+
+  <div class="panel" role="tabpanel" id="panel-103" aria-labelledby="tab-103" hidden>
+    <h2>Ticket #103: Bulk hoodie discount</h2>
+    <div class="sections">
+      <section class="expected">
+        <h3>Expected</h3>
+        <p>The boss calls <strong>inventory</strong> first. Inventory uses <code>check_stock</code> to find only 8 size-M hoodies against the 20 requested, and <code>get_restock_eta</code> to price the 12-unit shortfall from Bulldog Print Co (about $264). The boss then calls <strong>accounting</strong>. It uses <code>quote_bulk_price</code> to show margins at a few discount levels, and <code>list_bills_due</code> to show that after the invoice and rent there isn't enough cash for that restock (there's no revenue). There's no discount policy in the data, so nothing is decided. The boss calls <strong>customer service</strong>, which uses <code>check_stock</code> and <code>save_draft</code> to draft a reply to the Yale AI Club saying the request is under review, without promising a discount or a date. The boss marks the ticket <code>waiting_on_human</code> with <code>update_ticket</code>.</p>
+      </section>
+      <section class="actual">
+        <h3>Actual</h3>
+        <p class="final"><span class="chip attention">Final status: waiting_on_human</span> <span class="chip">1 run</span> <span class="chip">No payments</span></p>
+        <p>The boss called <strong>accounting</strong> and <strong>inventory</strong> together. Inventory (<code>check_stock</code>, <code>list_vendors</code>, <code>get_restock_eta</code>) found 8 size-M hoodies, 12 short of the 20 requested. It priced a 12-unit restock at $264.00 and reported that Bulldog Print Co was still blocked by invoice 501 at that time. Accounting used <code>quote_bulk_price</code> only at 0% off ($58.00 each, $1,160.00 total, 62.1% margin). It pointed out that the shop data has no discount policy, so a person has to decide. It also laid out the cash plan: after the invoice and rent, only $160.00 would be left.</p>
+        <p><strong>Customer service</strong> checked stock and the list-price quote, then drafted a reply to the Yale AI Club. The reply gives the shortage and list-price total but promises no discount and no restock date. The boss set <code>waiting_on_human</code>, as expected. One mistake: accounting said there were "no pending payment approvals" while two were waiting on the dashboard. Its tools only show completed payments.</p>
+      </section>
+    </div>
+  </div>
+
+  <div class="panel" role="tabpanel" id="panel-cash" aria-labelledby="tab-cash" hidden>
+    <h2>Cash flows from the tickets</h2>
+    <p class="lede">Checking account, from the reset through the end of the full run. Cash only goes out, because this homework doesn't model revenue. Every payment needed a person's approval on the dashboard.</p>
+    <table class="ledger">
+      <thead>
+        <tr><th>#</th><th>Ticket</th><th>What</th><th>Paid to</th><th>Approved by</th><th class="num">Amount</th><th class="num">Balance</th></tr>
+      </thead>
+      <tbody>
+        <tr class="opening"><td></td><td></td><td>Opening balance (after reset)</td><td></td><td></td><td class="num"></td><td class="num">$3,400.00</td></tr>
+        <tr><td>1</td><td>#101</td><td>Invoice 501: rush reprint CC-TEE-WHITE S (was 3 days overdue)</td><td>Bulldog Print Co</td><td>Quinn</td><td class="num out">−$840.00</td><td class="num">$2,560.00</td></tr>
+        <tr><td>2</td><td>#102</td><td>Rent for Chapel Street shop, lease 1 (due 2026-09-02)</td><td>Elm City Properties</td><td>Quinn</td><td class="num out">−$2,400.00</td><td class="num">$160.00</td></tr>
+        <tr class="closing"><td></td><td></td><td>Closing balance</td><td></td><td></td><td class="num out">−$3,240.00</td><td class="num">$160.00</td></tr>
+      </tbody>
+    </table>
+    <p class="note">The ledger rows match the <code>payments</code> table: payment IDs 1 and 2, both paid 2026-08-31 from checking. Ticket #103 had no cash flow.</p>
+
+    <h3 class="sub">Not paid: drafted, estimated, or coming up</h3>
+    <table class="ledger muted-table">
+      <thead>
+        <tr><th>Ticket</th><th>Item</th><th>Status</th><th class="num">Amount</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>#101</td><td>Reprint order: 1 × CC-TEE-WHITE S from Bulldog Print Co, arriving 2026-09-05</td><td>Drafted only. A person must place it.</td><td class="num">~$8.00</td></tr>
+        <tr><td>#103</td><td>Restock: 12 × CC-HOOD-NAVY M from Bulldog Print Co</td><td>Estimated only. Not ordered.</td><td class="num">~$264.00</td></tr>
+        <tr><td>#103</td><td>Sale: 20 hoodies to the Yale AI Club at list price</td><td>Quote only. No revenue is modeled.</td><td class="num">$1,160.00</td></tr>
+        <tr><td>#102</td><td>Next month's rent, lease 1, due 2026-10-02</td><td>Upcoming. Not covered by current cash.</td><td class="num">$2,400.00</td></tr>
+      </tbody>
+    </table>
+    <p class="note warn">After the two approved payments, $160.00 is left. That covers the $8.00 tee reprint, but not the $264.00 hoodie restock or next month's $2,400.00 rent. Accounting flagged the rent shortfall on its own during the #101 follow-up run.</p>
+  </div>
+
+  <div class="panel" role="tabpanel" id="panel-reflections" aria-labelledby="tab-reflections" hidden>
+    <h2>Reflections</h2>
+
+    <article class="q">
+      <h3>How would you evaluate the performance of the agents on each ticket, and why?</h3>
+      <p>Overall, the agents did well on what matters most: accuracy and following the rules. On every ticket they used real numbers from the tools ($840.00, $2,400.00, 0 tees, 8 hoodies, the 2026-09-05 arrival date) and never made anything up. They never claimed a payment had gone through before a person approved it, and they never promised a customer something that wasn't confirmed. <strong>Ticket 101</strong> was handled well: the team spotted that the unpaid invoice was what blocked the tee, prepared the payment for approval, and after approval planned the reprint and corrected the customer reply. <strong>Ticket 103</strong> showed the best judgment. With no discount policy in the data, the agents left the discount to a person instead of inventing one, and noticed that the restock depended on the same blocked vendor.</p>
+      <p>The weak spots were efficiency and keeping track of what other agents knew. <strong>Ticket 102</strong> reached the right result, but facilities briefly called the new due date a "mismatch" and wouldn't confirm the payment until the boss passed along accounting's ledger check. On 103, accounting wrongly said there were no pending approvals, because it can't see the dashboard's queue. Two smaller costs ran through all three tickets. Tickets 101 and 102 each needed a second run after approval. And because a draft can't be edited, old drafts piled up next to new ones. I'd grade them A on safety and accuracy, B on teamwork and efficiency.</p>
+    </article>
+
+    <article class="q">
+      <h3>For each ticket, how did Actual compare to the Expected plan?</h3>
+      <p><strong>#101</strong> followed the expected chain closely: stock check, blocked vendor, invoice payment, restock date, vendor draft, customer draft. Two things differed. First, the boss consulted accounting and inventory together before acting, instead of going to inventory first, because its prompt tells it to plan around cash. Second, the ticket ended <code>waiting_on_human</code>, not <code>waiting_on_vendor</code>, because a person still has to place the drafted order. My expected plan also left out that human approval splits the work into two runs. <strong>#102</strong> matched almost exactly: the notice was checked against the lease, rent was paid with approval, a landlord draft was saved, and the ticket was <code>resolved</code> at $160.00 left, as predicted. The only surprise was the extra back-and-forth on the second run.</p>
+      <p><strong>#103</strong> matched the expected outcome: 8 of 20 hoodies in stock, a restock estimated at about $264.00, no discount decided, an "under review" draft, and <code>waiting_on_human</code>. It fell short in one way. I expected accounting to show margins at several discount levels, but it only quoted list price (0% off), because the boss asked whether a discount was allowed, not what different discounts would cost. My expectation that cash couldn't cover the restock after the other two bills also held: $160.00 is less than $264.00.</p>
+    </article>
+
+    <article class="q">
+      <h3>What would have been simpler as one agent with tools, and why?</h3>
+      <p>Honestly, most of this. The shop is small (nine tables, three tickets), and the MCP tools already enforce the hard rules: the overdue math, the blocked vendor, the approval step for payments, and the no-negative-balance check. A single agent with all the tools could have handled each ticket in a handful of calls. Instead, the team re-explained facts in every hand-off, re-fetched the date and ticket in nearly every specialist, and wrote long briefing messages. That cost time and tokens: most runs took 1.5 to 2 minutes for work that is really a few lookups and one payment.</p>
+      <p>Splitting knowledge across agents also caused the real mistakes. Facilities couldn't see the payment ledger, so on ticket 102 it doubted a payment accounting had already confirmed. On ticket 103, accounting's tools couldn't see the approval queue, so it gave a wrong answer about pending approvals. One agent would have had the full picture the whole time. The team still bought two things: only accounting holds the payment tools, which limits the damage a confused agent can do, and the audit trail reads like a clear conversation. But the server already enforces approval no matter which agent calls it, so a single agent with these tools and a short checklist prompt would likely have been just as safe, cheaper, and less error-prone.</p>
+    </article>
+
+    <article class="q">
+      <h3>Three new problems this team could solve with the tools we built</h3>
+      <p><strong>1. A weekly low-stock reorder plan.</strong> Inventory can run <code>check_stock</code> across every SKU and find the gaps, such as the Crest Mug at 0. It can match each item to a vendor with <code>list_vendors</code> (Elm City Gifts, 3-day lead time) and use <code>get_restock_eta</code> for arrival dates and costs. Then it saves draft orders with <code>save_draft</code>, and accounting checks the total against cash with <code>list_bills_due</code>. <strong>2. A bills-and-cash warning.</strong> Accounting and facilities can use <code>list_bills_due</code>, <code>get_lease</code>, and <code>list_payments</code> to spot that October's $2,400.00 rent isn't covered by the $160.00 left. They can draft a heads-up to the owner or the landlord, and if money did come in, prepare the payment for approval when it's due.</p>
+      <p><strong>3. Group-order quotes for other student organizations.</strong> When a club asks for 30 caps or 50 mugs, customer service and accounting can use <code>check_stock</code> and <code>quote_bulk_price</code> at a few discount levels. That gives margins and flags anything below cost. Inventory adds restock dates for any shortfall, and customer service drafts the quote for a person to review. All of this reuses tools we already have. Nothing new would need approval, because no money changes hands.</p>
+    </article>
+
+    <article class="q">
+      <h3>Three new problems this team could not solve, and what it would need</h3>
+      <p><strong>1. Recording sales and money coming in.</strong> If the Yale AI Club pays for its hoodies, nothing can record the sale, add the $1,160.00 to checking, or take the hoodies out of stock. That would need a <code>record_sale</code> tool that adds revenue and lowers inventory together, a <code>refund</code> tool that needs approval, and a <strong>Sales</strong> agent. <strong>2. Actually placing and receiving vendor orders.</strong> Today the agents can only draft orders, which is exactly why ticket 101 stopped short. That would need a <code>place_purchase_order</code> tool that requires approval and checks the budget, and a <code>receive_shipment</code> tool that adds stock and creates the vendor's invoice. A <strong>Purchasing</strong> agent would own these and follow deliveries against <code>lead_days</code>.</p>
+      <p><strong>3. Real communication and new requests.</strong> The team can't send the drafts it writes or read replies, and it can't turn an incoming email into a new ticket. That would need a <code>send_message</code> tool where a person approves every outgoing message, plus <code>read_inbox</code> and <code>create_ticket</code> tools. A <strong>Front Desk / Intake</strong> agent would sort incoming requests. Because incoming email is untrusted text, it would also need strong rules against instructions hidden in messages, and a <code>supersede_draft</code> tool so outdated drafts can be retired. A pricing policy table (with a <code>set_discount_policy</code> tool that needs approval) would also let tickets like 103 be resolved without waiting on a person every time.</p>
+    </article>
+  </div>
+</main>
+
+<script>
+  const tabs = document.querySelectorAll('.tab');
+  tabs.forEach(tab => tab.addEventListener('click', () => {
+    tabs.forEach(t => {
+      const selected = t === tab;
+      t.setAttribute('aria-selected', selected);
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !selected;
+    });
+  }));
+</script>
+</body>
+</html>

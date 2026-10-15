@@ -1,0 +1,251 @@
+{
+  "generated_from": "dashboard API and output/audit_trail.json after the full run (data reset first)",
+  "shop_date": "2026-08-31",
+  "model": "gpt-6-luna",
+  "tickets": [
+    {
+      "id": 101,
+      "type": "customer_order",
+      "requester": "Tauhid Zaman",
+      "subject": "Bulldog tee",
+      "request": "Needs a tee in size S.",
+      "final_status": "waiting_on_human",
+      "state": "open",
+      "short_outcome": "Invoice 501 ($840.00) paid after human approval, which unblocked Bulldog Print Co. A 1-unit reprint order (arrives 2026-09-05, est. $8.00) and a corrected customer reply are drafted. Waiting on a person to submit the vendor order, since agents can only draft purchases.",
+      "boss_final_note": "2026-08-31: Accounting confirms invoice 501 ($840.00, due 2026-08-28) was paid on 2026-08-31, approved by Quinn; current cash reported as $160.00. Inventory confirms CC-TEE-WHITE size S is 0 on hand and Bulldog Print Co. can ship. Inventory saved a draft order for 1 unit, estimated cost $8.00 and estimated arrival 2026-09-05; draft was not submitted and no cost incurred. Customer service saved an updated unsent draft explaining the stockout and that delivery is unconfirmed pending submission/authorization. Waiting on a human to submit/authorize the vendor order before delivery can be confirmed.",
+      "human_approvals": [
+        {
+          "approval_id": "51809c49",
+          "tool": "pay_invoice",
+          "args": {
+            "invoice_id": 501
+          },
+          "amount": 840.0,
+          "for": "invoice 501 to Bulldog Print Co (Rush reprint CC-TEE-WHITE S), due 2026-08-28",
+          "requested_by": "accounting",
+          "decision": "approved",
+          "decided_by": "Quinn",
+          "paid": true,
+          "payment_id": 1,
+          "balance_after": 2560.0,
+          "error": null
+        }
+      ],
+      "agents": {
+        "boss": {
+          "tools_used": [
+            "update_ticket(ticket_id=101, status='waiting_on_human', note='Stock check found CC-TEE-WHITE size S at 0 (qty 1 requested). Bulldog Print Co. is blocked from shipping by overdue invoice 501 ($840.00, due 2026-08-28); no arrival date or restock order is available while blocked. Accounting prepared payment, status pending_human_approval, approval_id 51809c49; nothing has been paid. Human must approve this payment before inventory can plan the restock. Customer service saved a reply draft stating out of stock, payment awaiting approval, and no confirmed ETA; draft not sent.')",
+            "update_ticket(ticket_id=101, status='waiting_on_human', note='2026-08-31: Accounting confirms invoice 501 ($840.00, due 2026-08-28) was paid on 2026-08-31, approved by Quinn; current cash reported as $160.00. Inventory confirms CC-TEE-WHITE size S is 0 on hand and Bulldog Print Co. can ship. Inventory saved a draft order for 1 unit, estimated cost $8.00 and estimated arrival 2026-09-05; draft was not submitted and no cost incurred. Customer service saved an updated unsent draft explaining the stockout and that delivery is unconfirmed pending submission/authorization. Waiting on a human to submit/authorize the vendor order before delivery can be confirmed.')"
+          ],
+          "final_report": "**Ticket 101 — waiting_on_human**\n\n- Accounting confirmed invoice 501 ($840.00) was paid on 2026-08-31, approved by Quinn. Current cash reported: **$160.00**.\n- Inventory confirmed size S is out of stock (0 on hand) and saved an **unsubmitted** draft order for 1 unit at an estimated cost of $8.00, with estimated arrival 2026-09-05. No cost was incurred.\n- Customer service saved an updated unsent reply draft. A person must submit/authorize the vendor order before delivery can be confirmed.\n- The earlier draft saying payment was awaiting approval could not be removed; the updated draft corrects it.\n\nNo other ticket was changed.",
+          "delegated_to": [
+            "accounting",
+            "inventory",
+            "customer_service"
+          ]
+        },
+        "accounting": {
+          "tools_used": [
+            "list_payments()",
+            "list_bills_due()",
+            "pay_invoice(invoice_id=501)"
+          ],
+          "final_report": "- **Cash on hand:** $160.00 in checking as of 2026-08-31.\n- **Invoice 501:** Ticket 101 records a due date of 2026-08-28, which was overdue as of the shop date. It is not listed among unpaid invoices.\n- **Payment status:** Ticket notes mention approval ID `51809c49` with status `pending_human_approval`. However, the current payment ledger shows invoice 501 was **paid** for $840.00 on 2026-08-31, approved by Quinn. The ledger does not show an approval ID.\n- **Action:** No payment action is needed; I did not initiate a duplicate payment.\n- **Cash priority:** The open rent obligation is $2,400.00 due 2026-10-02. The current $160.00 balance cannot cover it."
+        },
+        "inventory": {
+          "tools_used": [
+            "check_stock(sku='CC-TEE-WHITE', size='S')",
+            "list_vendors()",
+            "get_restock_eta(sku='CC-TEE-WHITE', size='S', qty=1, vendor_id=1)",
+            "save_draft(ticket_id=101, recipient='Bulldog Print Co')"
+          ],
+          "final_report": "Saved a vendor order draft on ticket 101 for Bulldog Print Co.: 1 × CC-TEE-WHITE, size S, expected arrival 2026-09-05. The draft was not sent or submitted, and no cost was incurred.\n\nStock is 0 in Aisle B, so it does not cover the 1-unit request; the shortfall is 1. Bulldog Print Co. can ship; estimated cost is $8.00, with a 5-day lead time. No human approval is needed for this draft; someone would need to submit the order separately."
+        },
+        "customer_service": {
+          "tools_used": [
+            "check_stock(sku='CC-TEE-WHITE', size='S')",
+            "save_draft(ticket_id=101, recipient='Tauhid Zaman')"
+          ],
+          "final_report": "Checked ticket 101 and confirmed CC-TEE-WHITE size S is out of stock (0 on hand). Saved an updated draft to Tauhid Zaman stating invoice 501 was paid and approved by Quinn, and that delivery is not confirmed because the vendor order has not been submitted. The draft was not sent.\n\nThe available tools don’t support editing or removing the earlier draft. The new draft corrects its outdated “awaiting approval” statement; the earlier draft remains in the ticket notes."
+        }
+      },
+      "drafts": [
+        {
+          "to": "Tauhid Zaman",
+          "text": "Hi Tauhid,\n\nThanks for reaching out. The CC-TEE-WHITE in size S is currently out of stock. Our supplier is unable to ship new stock while an invoice remains unpaid, and the related payment is awaiting human approval. We don’t have a confirmed arrival date yet, but we’ll follow up once we have an update.\n\nBest,\nCampus Customs"
+        },
+        {
+          "to": "Bulldog Print Co",
+          "text": "Vendor order draft only — not submitted.\nSKU: CC-TEE-WHITE\nSize: S\nQuantity: 1\nExpected arrival: 2026-09-05"
+        },
+        {
+          "to": "Tauhid Zaman",
+          "text": "Hi Tauhid,\n\nThe CC-TEE-WHITE in size S is currently out of stock. Invoice 501 was paid on 2026-08-31 and approved by Quinn, so Bulldog Print Co. can ship. We have a draft order for one tee with an estimated arrival of 2026-09-05, but the order has not been submitted, so delivery is not yet confirmed. A person must submit and authorize the order before we can confirm delivery. We’ll follow up once that’s done.\n\nBest,\nCampus Customs"
+        },
+        {
+          "to": "Tauhid Zaman",
+          "text": "Hi Tauhid,\n\nA correction to my earlier update: invoice 501 has been paid and approved by Quinn. The CC-TEE-WHITE in size S is still out of stock. The supplier can ship, but the vendor order has not been submitted, so we don't have a confirmed delivery date yet. We'll follow up once the order and delivery timing are confirmed.\n\nBest,\nCampus Customs"
+        }
+      ],
+      "runs": [
+        {
+          "run_id": "245232b07631",
+          "status": "finished"
+        },
+        {
+          "run_id": "4be188a0721b",
+          "status": "finished"
+        }
+      ]
+    },
+    {
+      "id": 102,
+      "type": "rent_notice",
+      "requester": "Elm City Properties",
+      "subject": "Rent due",
+      "request": "Email: shop rent due in 2 days.",
+      "final_status": "resolved",
+      "state": "resolved",
+      "short_outcome": "Rent notice verified against lease 1 ($2,400.00 due 2026-09-02), rent paid after human approval (lease now due 2026-10-02), and a landlord reply confirming payment is drafted. Resolved.",
+      "boss_final_note": "2026-08-31: Accounting checked the current payment ledger: lease 1 rent of $2,400.00 was paid on 2026-08-31 (payment ID 2), approved by Quinn; current checking cash is $160.00. Accounting also reports invoice 501 paid (payment ID 1, $840.00, approved by Quinn); no unpaid invoices or overdue items are listed. Facilities verified lease 1 rent is $2,400.00, with next due date 2026-10-02. Facilities saved an updated unsent draft confirming the reported rent payment and next due date; not sent. Older ticket notes showing rent due 2026-09-02 and approval_id 8976f0dc pending are inconsistent with the current accounting ledger and lease verification.",
+      "human_approvals": [
+        {
+          "approval_id": "8976f0dc",
+          "tool": "pay_rent",
+          "args": {
+            "lease_id": 1,
+            "account": "checking"
+          },
+          "amount": 2400.0,
+          "for": "rent for Chapel Street shop to Elm City Properties, due 2026-09-02",
+          "requested_by": "accounting",
+          "decision": "approved",
+          "decided_by": "Quinn",
+          "paid": true,
+          "payment_id": 2,
+          "balance_after": 160.0,
+          "error": null
+        }
+      ],
+      "agents": {
+        "boss": {
+          "tools_used": [
+            "update_ticket(ticket_id=102, status='waiting_on_human', note='2026-08-31: Facilities verified lease 1 rent is $2,400.00 due 2026-09-02 and saved an unsent reply draft confirming the lease details; no claim that rent is paid. Accounting prepared rent payment, status pending_human_approval, approval_id 8976f0dc; payment has not been made. Human approval is required before this ticket can be resolved. Accounting reports checking balance $3,400.00 unchanged pending approval; invoice 501 ($840.00) remains unpaid and overdue.')",
+            "update_ticket(ticket_id=102, status='resolved', note='2026-08-31: Accounting checked the current payment ledger: lease 1 rent of $2,400.00 was paid on 2026-08-31 (payment ID 2), approved by Quinn; current checking cash is $160.00. Accounting also reports invoice 501 paid (payment ID 1, $840.00, approved by Quinn); no unpaid invoices or overdue items are listed. Facilities verified lease 1 rent is $2,400.00, with next due date 2026-10-02. Facilities saved an updated unsent draft confirming the reported rent payment and next due date; not sent. Older ticket notes showing rent due 2026-09-02 and approval_id 8976f0dc pending are inconsistent with the current accounting ledger and lease verification.')"
+          ],
+          "final_report": "Ticket **102** is **resolved**. Facilities verified lease 1 rent is **$2,400.00**, with the next payment due **2026-10-02**, and saved an updated landlord reply draft confirming payment. The draft was not sent.\n\nAccounting’s current ledger reports rent was paid on **2026-08-31** (payment ID 2), approved by **Quinn**. It also reports invoice 501 was paid ($840.00, payment ID 1), approved by Quinn. Current checking cash is **$160.00**. These ledger details conflict with older ticket notes; I recorded that discrepancy. No other ticket status was changed.",
+          "delegated_to": [
+            "accounting",
+            "facilities"
+          ]
+        },
+        "accounting": {
+          "tools_used": [
+            "list_bills_due()",
+            "list_payments()",
+            "pay_rent(lease_id=1, account='checking')"
+          ],
+          "final_report": "- **Shop date:** 2026-08-31. **Checking cash:** $160.00.\n- **Lease 1:** Elm City Properties; rent is **$2,400.00**, due **2026-10-02**. It is not due or overdue; 32 days remain. No unpaid invoices or overdue items are listed.\n- **Payment status:** The current payment ledger shows rent for lease 1 **paid** on 2026-08-31: payment ID 2, $2,400.00, approved by Quinn. It also shows invoice 501 paid (payment ID 1, $840.00, approved by Quinn). This differs from the ticket notes listing approval IDs as pending; those notes do not reflect the current ledger. I did not create or process a payment.\n- **Shared cash:** The ledger records both payments, leaving $160.00. No payment was made for ticket 101 in this check."
+        },
+        "facilities": {
+          "tools_used": [
+            "get_lease(lease_id=1)",
+            "list_bills_due()",
+            "save_draft(ticket_id=102, recipient='Elm City Properties')"
+          ],
+          "final_report": "Saved the updated draft on ticket 102, confirming the reported $2,400.00 payment on 2026-08-31 (payment ID 2) and the lease-verified next due date of 2026-10-02. It was not sent, and no payment was made."
+        }
+      },
+      "drafts": [
+        {
+          "to": "Elm City Properties",
+          "text": "Hello Elm City Properties,\n\nWe checked the lease for the Chapel Street shop. Our records show monthly rent of $2,400.00 due on 2026-09-02. We have not confirmed payment.\n\nRegards,\nCampus Customs"
+        },
+        {
+          "to": "Elm City Properties",
+          "text": "Hello Elm City Properties,\n\nWe checked the lease for the Chapel Street shop. Our records show monthly rent of $2,400.00, with the next rent due on 2026-10-02. Payment is not confirmed.\n\nRegards,\nCampus Customs"
+        },
+        {
+          "to": "Elm City Properties",
+          "text": "Hello Elm City Properties,\n\nOur records confirm the $2,400.00 rent payment was paid on 2026-08-31 (payment ID 2). The next rent is due on 2026-10-02.\n\nRegards,\nCampus Customs"
+        }
+      ],
+      "runs": [
+        {
+          "run_id": "6716d30fedd7",
+          "status": "finished"
+        },
+        {
+          "run_id": "a0d0b2256c0f",
+          "status": "finished"
+        }
+      ]
+    },
+    {
+      "id": 103,
+      "type": "price_override",
+      "requester": "Yale AI Club",
+      "subject": "Bulk hoodie discount",
+      "request": "Student org wants 20 hoodies, size M, asking for a bulk discount.",
+      "final_status": "waiting_on_human",
+      "state": "open",
+      "short_outcome": "Only 8 of 20 size M hoodies in stock. A 12-unit restock (est. $264.00) was blocked by unpaid invoice 501 when the ticket ran (it has since been paid, but $160.00 left in checking wouldn't cover it). The shop data has no discount policy, so the agents quoted list price ($1,160.00 for 20) and left the discount to a person. An 'under review' reply is drafted.",
+      "boss_final_note": "2026-08-31: Inventory confirmed 8 units of CC-HOOD-NAVY, size M, on hand; 12 short of the requested 20. Bulldog Print Co. cannot ship while invoice 501 ($840.00, due 2026-08-28) remains open. A 12-unit restock estimate is $264.00 with a 5-day lead time, but there is no arrival date while shipping is blocked; no order was created. Accounting reports list price $58.00 each ($1,160.00 total at 0% discount) and no shop-data discount policy or requested percentage; human must decide whether/how much discount to authorize and whether/when to pay invoice 501 before restock can proceed. Customer service saved an unsent draft noting the shortage and list-price total without promising a discount or delivery. No payment or order made.",
+      "human_approvals": [],
+      "agents": {
+        "boss": {
+          "tools_used": [
+            "update_ticket(ticket_id=103, status='waiting_on_human', note='2026-08-31: Inventory confirmed 8 units of CC-HOOD-NAVY, size M, on hand; 12 short of the requested 20. Bulldog Print Co. cannot ship while invoice 501 ($840.00, due 2026-08-28) remains open. A 12-unit restock estimate is $264.00 with a 5-day lead time, but there is no arrival date while shipping is blocked; no order was created. Accounting reports list price $58.00 each ($1,160.00 total at 0% discount) and no shop-data discount policy or requested percentage; human must decide whether/how much discount to authorize and whether/when to pay invoice 501 before restock can proceed. Customer service saved an unsent draft noting the shortage and list-price total without promising a discount or delivery. No payment or order made.')"
+          ],
+          "final_report": "Ticket **103 — waiting_on_human**\n\n- Checked stock: **8** of **20** CC-HOOD-NAVY, size M, are on hand.\n- Accounting reported list price **$58.00 each** (**$1,160.00** total at 0% discount). Shop data has no discount policy; a human must decide whether/how much to discount.\n- Bulldog Print Co. cannot ship while invoice **501** (**$840.00**, due **2026-08-28**) remains open. A 12-unit restock estimate is **$264.00** with a 5-day lead time, but there is no confirmed arrival date. No order was created.\n- Customer service saved an unsent draft. No payment was made.\n- Accounting reported checking balance: **$3,400.00**. No payment approval or approver reported.\n\nNo other ticket was changed.",
+          "delegated_to": [
+            "accounting",
+            "inventory",
+            "customer_service"
+          ]
+        },
+        "accounting": {
+          "tools_used": [
+            "list_payments()",
+            "list_bills_due()",
+            "quote_bulk_price(sku='CC-HOOD-NAVY', qty=20, discount_pct=0)"
+          ],
+          "final_report": "**Ticket 103 — Yale AI Club**\n\n- Checked the 20-unit quote for SKU `CC-HOOD-NAVY` at the **0% discount** baseline: list price **$58.00** per hoodie; total **$1,160.00**; margin **$36.00** per hoodie (**62.1%**). This is above cost.\n- The shop data provides no allowable-discount policy or requested discount percentage. A human must decide whether to authorize a discount; no discount was approved.\n\n**Cash and board-wide obligations** (shop date: **2026-08-31**; current checking balance: **$3,400.00**):\n\n1. **Overdue:** Invoice **501**, Bulldog Print Co — **$840.00**, due **2026-08-28**. Running balance if paid: **$2,560.00**.\n2. **Upcoming:** Rent, lease **1**, Elm City Properties — **$2,400.00**, due **2026-09-02**. Running balance after both obligations: **$160.00**.\n\nThe payment ledger shows no payments or pending payment approvals. No payment was made or prepared."
+        },
+        "inventory": {
+          "tools_used": [
+            "check_stock(sku='CC-HOOD-NAVY', size='M')",
+            "list_vendors()",
+            "get_restock_eta(sku='CC-HOOD-NAVY', size='M', qty=12, vendor_id=1)"
+          ],
+          "final_report": "Ticket 103 — CC-HOOD-NAVY, size M\n\n- On hand: **8 units** in **Aisle A**; this is **12 short** of the requested 20.\n- The matching apparel vendor is **Bulldog Print Co** (specialty: apparel reprint), but it **cannot ship** while invoice **501** for **$840.00**, due **2026-08-28**, remains open.\n- A 12-unit restock estimate is **$264.00**. The vendor’s lead time is **5 days**, but no arrival date is available while shipping is blocked.\n\nNo order was created. Restock depends on the invoice being paid by accounting."
+        },
+        "customer_service": {
+          "tools_used": [
+            "check_stock(sku='CC-HOOD-NAVY', size='M')",
+            "quote_bulk_price(sku='CC-HOOD-NAVY', qty=20, discount_pct=0)",
+            "save_draft(ticket_id=103, recipient='Yale AI Club')"
+          ],
+          "final_report": "Draft saved to Ticket 103 for Yale AI Club; it was not sent. It notes 8 size M hoodies on hand, a shortage of 12, and the $1,160.00 list-price total for 20, without promising a discount or restock timing."
+        }
+      },
+      "drafts": [
+        {
+          "to": "Yale AI Club",
+          "text": "Hi Yale AI Club,\n\nWe currently have 8 size M hoodies in stock, so we are 12 short of the 20 requested. The list price is $58.00 each ($1,160.00 total for 20 before any discount). I can’t confirm a discount or restock timing yet. We’ll follow up once the discount decision and availability are confirmed.\n\nBest,\nCampus Customs"
+        }
+      ],
+      "runs": [
+        {
+          "run_id": "c59b41b4eda0",
+          "status": "finished"
+        }
+      ]
+    }
+  ],
+  "cash_after": {
+    "name": "checking",
+    "balance": 160.0,
+    "date": "2026-08-31"
+  }
+}

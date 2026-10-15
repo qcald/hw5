@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "campus-customs": {
+      "type": "stdio",
+      "command": "/Users/quinncalderone/Library/CloudStorage/OneDrive-YaleUniversity/409 AI Foundations/hw5/.venv/bin/python",
+      "args": [
+        "/Users/quinncalderone/Library/CloudStorage/OneDrive-YaleUniversity/409 AI Foundations/hw5/mcp_server/server.py"
+      ]
+    }
+  }
+}

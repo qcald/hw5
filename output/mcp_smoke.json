@@ -1,0 +1,122 @@
+{
+  "server": "campus-customs",
+  "config": ".mcp.json",
+  "tools_listed": [
+    "list_open_tickets",
+    "check_stock",
+    "list_bills_due"
+  ],
+  "calls": [
+    {
+      "prompt": "What tickets are open on the board right now?",
+      "tool": "list_open_tickets",
+      "arguments": {},
+      "output": {
+        "shop_date": "2026-08-31",
+        "tickets": [
+          {
+            "id": 101,
+            "type": "customer_order",
+            "requester": "Tauhid Zaman",
+            "subject": "Bulldog tee",
+            "sku": "CC-TEE-WHITE",
+            "size": "S",
+            "qty": 1,
+            "lease_id": null,
+            "invoice_id": 501,
+            "status": "open",
+            "notes": "Needs a tee in size S.",
+            "created_at": "2026-08-31T09:15:00-04:00"
+          },
+          {
+            "id": 102,
+            "type": "rent_notice",
+            "requester": "Elm City Properties",
+            "subject": "Rent due",
+            "sku": null,
+            "size": null,
+            "qty": null,
+            "lease_id": 1,
+            "invoice_id": null,
+            "status": "open",
+            "notes": "Email: shop rent due in 2 days.",
+            "created_at": "2026-08-31T11:05:00-04:00"
+          },
+          {
+            "id": 103,
+            "type": "price_override",
+            "requester": "Yale AI Club",
+            "subject": "Bulk hoodie discount",
+            "sku": "CC-HOOD-NAVY",
+            "size": "M",
+            "qty": 20,
+            "lease_id": null,
+            "invoice_id": null,
+            "status": "open",
+            "notes": "Student org wants 20 hoodies, size M, asking for a bulk discount.",
+            "created_at": "2026-08-31T16:55:00-04:00"
+          }
+        ]
+      }
+    },
+    {
+      "prompt": "Do we have the Classic Bulldog Tee in size S in stock for ticket 101?",
+      "tool": "check_stock",
+      "arguments": {
+        "sku": "CC-TEE-WHITE",
+        "size": "S"
+      },
+      "output": {
+        "sku": "CC-TEE-WHITE",
+        "name": "Classic Bulldog Tee",
+        "unit_cost": 8.0,
+        "list_price": 28.0,
+        "stock": [
+          {
+            "size": "S",
+            "qty": 0,
+            "location": "Aisle B"
+          }
+        ]
+      }
+    },
+    {
+      "prompt": "Which bills are due or overdue, and how much cash do we have?",
+      "tool": "list_bills_due",
+      "arguments": {},
+      "output": {
+        "shop_date": "2026-08-31",
+        "cash": [
+          {
+            "name": "checking",
+            "balance": 3400.0
+          }
+        ],
+        "unpaid_invoices": [
+          {
+            "invoice_id": 501,
+            "vendor_id": 1,
+            "vendor": "Bulldog Print Co",
+            "amount": 840.0,
+            "due_date": "2026-08-28",
+            "status": "open",
+            "description": "Rush reprint CC-TEE-WHITE S",
+            "days_until_due": -3,
+            "overdue": true
+          }
+        ],
+        "rent": [
+          {
+            "lease_id": 1,
+            "space_name": "Chapel Street shop",
+            "landlord": "Elm City Properties",
+            "amount": 2400.0,
+            "due_date": "2026-09-02",
+            "days_until_due": 2,
+            "overdue": false
+          }
+        ]
+      }
+    }
+  ]
+}
